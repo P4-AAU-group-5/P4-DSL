@@ -9,26 +9,24 @@ let parse_file filename =
     close_in chan;
     prog
   with
-  | Parsing.Parse_error ->
+  | Parser.Error ->
+      close_in chan;
       let pos = lexbuf.lex_curr_p in
       Printf.printf "Parse error at line %d\n" pos.pos_lnum;
       exit 1
 
 let print_program (prog : Ast.program) =
   List.iter (fun (d : Ast.device) ->
-    Printf.printf "device %s in %s\n"
-      d.name d.location
-  ) (prog.devices : Ast.device list);
+    Printf.printf "device %s in %s\n" d.name d.location
+  ) prog.devices;
 
   List.iter (fun (s : Ast.sensor) ->
-    Printf.printf "sensor %s in %s\n"
-      s.name s.location
-  ) (prog.sensors : Ast.sensor list);
+    Printf.printf "sensor %s in %s\n" s.name s.location
+  ) prog.sensors;
 
   List.iter (fun (r : Ast.rule) ->
-    Printf.printf "rule %s\n"
-      r.name
-  ) (prog.rules : Ast.rule list)
+    Printf.printf "rule %s\n" r.name
+  ) prog.rules
 
 let () =
   if Array.length Sys.argv < 2 then (
@@ -36,5 +34,9 @@ let () =
     exit 1
   );
 
-  let program : Ast.program = parse_file Sys.argv.(1) in
+  let program = parse_file Sys.argv.(1) in
+  
+  Semantic.check_program program;
+
   print_program program
+

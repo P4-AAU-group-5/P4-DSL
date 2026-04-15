@@ -46,9 +46,11 @@ let digit = ['0'-'9']
 let int = digit+
 let id = ['a'-'z' 'A'-'Z' '_'] ['a'-'z' 'A'-'Z' '0'-'9' '_']*
 let time = digit digit ':' digit digit
-let whitespace = [' ' '\t' '\n' '\r']+
+let whitespace = [' ' '\t' '\r']+
 
 rule read = parse
+  | "\r\n"             { NEWLINE }
+  | '\n'               { NEWLINE }
   | whitespace         { read lexbuf }
 
   | "device"           { DEVICE }
@@ -59,7 +61,6 @@ rule read = parse
   | "and"              { AND }
   | "in"               { IN }
   | "between"          { BETWEEN }
-  | ".."               { RANGE }
   | "time"             { TIME_KW }
 
   | "true"             { TRUE }
@@ -68,6 +69,8 @@ rule read = parse
   | "<"                { LT }
   | ">"                { GT }
   | "=="               { EQ }
+
+  | ".."               { RANGE }
   | "."                { DOT }
   | ":"                { COLON }
 

@@ -8,7 +8,7 @@ type sensor = {
   location : string;
 }
 
-type time = string  (* simple for now *)
+type time = int * int
 
 type comparison_op =
   | Lt
@@ -28,7 +28,7 @@ type action =
 
 type rule = {
   name : string;
-  cond : condition;
+  condition : condition;
   action : action;
 }
 
