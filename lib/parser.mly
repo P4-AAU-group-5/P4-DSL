@@ -8,7 +8,7 @@ let parse_time (s : string) =
 %}
 
 %token DEVICE SENSOR RULE IF THEN IN AND BETWEEN TIME_KW
-//Parseren kan nu forstå ordene: int bool som typer.
+(*Parseren kan nu forstå ordene: int bool som typer.*)
 %token INT_TYPE BOOL_TYPE
 %token LT GT EQ RANGE DOT COLON
 %token TRUE FALSE
