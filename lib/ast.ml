@@ -7,9 +7,12 @@ type device = {
 type sensor = {
   name : string;
   location : string;
-  sensor_type : sensor_type;
-  value : _;
+  value : value;
 }
+
+type value = 
+  | Int of int
+  | Bool of bool
 
 // Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er.
 type sensor_type =
