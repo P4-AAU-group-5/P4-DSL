@@ -11,7 +11,7 @@ type sensor = {
   value : _;
 }
 
-(* Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er. - Shoaib *) 
+// Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er.
 type sensor_type =
   | IntSensor
   | BoolSensor

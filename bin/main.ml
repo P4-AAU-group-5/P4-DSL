@@ -20,9 +20,18 @@ let print_program (prog : Ast.program) =
     Printf.printf "device %s in %s\n" d.name d.location
   ) prog.devices;
 
-  List.iter (fun (s : Ast.sensor) ->
+ (* List.iter (fun (s : Ast.sensor) ->
     Printf.printf "sensor %s in %s\n" s.name s.location
-  ) prog.sensors;
+  ) prog.sensors; *)
+
+  List.iter (fun (s : Ast.sensor) ->
+  let typ =
+    match s.sensor_type with
+    | IntSensor -> "int"
+    | BoolSensor -> "bool"
+  in
+  Printf.printf "sensor %s %s in %s\n" s.name typ s.location
+) prog.sensors;
 
   List.iter (fun (r : Ast.rule) ->
     Printf.printf "rule %s\n" r.name

@@ -8,7 +8,7 @@ let parse_time (s : string) =
 %}
 
 %token DEVICE SENSOR RULE IF THEN IN AND BETWEEN TIME_KW
-//Parseren kan nu forstå ordene: int bool som typer.
+(*Parseren kan nu forstå ordene: int bool som typer.*)
 %token INT_TYPE BOOL_TYPE
 %token LT GT EQ RANGE DOT COLON
 %token TRUE FALSE
@@ -62,8 +62,8 @@ declaration:
   DEVICE IDENT IN IDENT
     { ([{ name = $2; location = $4 }], []) }
 
-// | SENSOR IDENT IN IDENT
-    { ([], [{ name = $2; location = $4 }]) }
+(* | SENSOR IDENT IN IDENT
+    { ([], [{ name = $2; location = $4 }]) }*)
 
     | SENSOR IDENT INT_TYPE IN IDENT
     { ([], [{ name = $2; location = $5; sensor_type = IntSensor }]) }
