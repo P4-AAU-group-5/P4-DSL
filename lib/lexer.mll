@@ -55,6 +55,8 @@ rule read = parse
 
   | "device"           { DEVICE }
   | "sensor"           { SENSOR }
+  | "int"              { INT_TYPE }
+  | "bool"             { BOOL_TYPE }
   | "rule"             { RULE }
   | "if"               { IF }
   | "then"             { THEN }
