@@ -4,12 +4,12 @@ type device = {
   state: bool;  
 }
 
-\*type sensor = {
+(*type sensor = {
   name : string;
   location : string;
-}\*
+}*)
 
-// Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er.
+(* Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er.*)
 type sensor_type =
   | IntSensor
   | BoolSensor
