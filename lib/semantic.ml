@@ -3,6 +3,9 @@ open Ast
 let check_sensor_exists (name : string) (sensors : sensor list) =
   List.exists (fun (s : sensor) -> s.name = name) sensors
 
+  let find_sensor (name : string) (sensors : sensor list) =
+  List.find_opt (fun (s : sensor) -> s.name = name) sensors
+
 let check_device_exists (name : string) (devices : device list) =
   List.exists (fun (d : device) -> d.name = name) devices
 
