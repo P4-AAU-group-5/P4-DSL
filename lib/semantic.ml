@@ -11,9 +11,19 @@ let check_device_exists (name : string) (devices : device list) =
 
 let rec check_condition (cond : condition) (program : program) =
   match cond with
-  | SensorCompare (name, _, _) ->
+  
+ (* | SensorCompare (name, _, _) ->
       if not (check_sensor_exists name program.sensors) then
+        failwith ("Unknown sensor: " ^ name) *)
+    | SensorCompare (name, _, _) ->
+    begin match find_sensor name program.sensors with
+    | None ->
         failwith ("Unknown sensor: " ^ name)
+
+    | Some s ->
+        if s.sensor_type <> IntSensor then
+          failwith ("Type error: sensor " ^ name ^ " must be int")
+    end
 
   | SensorEqualsBool (name, _) ->
       if not (check_sensor_exists name program.sensors) then
