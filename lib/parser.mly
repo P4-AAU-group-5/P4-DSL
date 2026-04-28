@@ -62,8 +62,8 @@ declaration:
   DEVICE IDENT IN IDENT
     { ([{ name = $2; location = $4 }], []) }
 
-// | SENSOR IDENT IN IDENT
-    { ([], [{ name = $2; location = $4 }]) }
+(* | SENSOR IDENT IN IDENT
+    { ([], [{ name = $2; location = $4 }]) }*)
 
     | SENSOR IDENT INT_TYPE IN IDENT
     { ([], [{ name = $2; location = $5; sensor_type = IntSensor }]) }
