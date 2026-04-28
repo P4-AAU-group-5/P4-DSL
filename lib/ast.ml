@@ -1,6 +1,7 @@
 type device = {
   name : string;
   location : string;
+  state: bool;  
 }
 
 type sensor = {
