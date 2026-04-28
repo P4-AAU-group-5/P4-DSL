@@ -13,11 +13,7 @@ type sensor = {
 type value = 
   | Int of int
   | Bool of bool
-
-// Nu ved compileren ikke kun, at noget er en sensor, men også hvilken type sensor det er.
-type sensor_type =
-  | IntSensor
-  | BoolSensor
+  | String of string
 
 type sensor = {
   name : string;
