@@ -1,26 +1,12 @@
 type device = {
   name : string;
   location : string;
-  state: bool;  
 }
 
 type sensor = {
   name : string;
   location : string;
-  value : value;
 }
-
-type value = 
-  | Int of int
-  | Bool of bool
-  | String of string
-
-type sensor = {
-  name : string;
-  location : string;
-  sensor_type : sensor_type;
-}
-
 
 type time = int * int
 

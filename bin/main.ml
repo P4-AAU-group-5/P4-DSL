@@ -17,11 +17,11 @@ let parse_file filename =
 
 let print_program (prog : Ast.program) =
   List.iter (fun (d : Ast.device) ->
-    Printf.printf "device %s in %s\n - value: %s" d.name d.location d.state
+    Printf.printf "device %s in %s\n" d.name d.location
   ) prog.devices;
 
   List.iter (fun (s : Ast.sensor) ->
-    Printf.printf "sensor %s in %s - value: %s \n" s.name s.location s.value
+    Printf.printf "sensor %s in %s\n" s.name s.location
   ) prog.sensors;
 
   List.iter (fun (r : Ast.rule) ->
@@ -35,8 +35,7 @@ let () =
   );
 
   let program = parse_file Sys.argv.(1) in
-  
+
   Semantic.check_program program;
 
   print_program program
-
