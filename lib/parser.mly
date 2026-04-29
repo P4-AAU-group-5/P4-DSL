@@ -3,8 +3,14 @@ open Ast
 
 let parse_time (s : string) =
   match String.split_on_char ':' s with
-  | [h; m] -> (int_of_string h, int_of_string m)
+  | [hh; mm] -> (int_of_string hh, int_of_string mm)
   | _ -> failwith "Invalid time"
+
+let parse_sensor_type (s : string) =
+  match String.lowercase_ascii s with
+  | "int" -> IntSensor
+  | "bool" -> BoolSensor
+  | _ -> failwith ("Unknown sensor type: " ^ s)
 %}
 
 %token DEVICE SENSOR RULE IF THEN IN AND BETWEEN TIME_KW
@@ -59,9 +65,8 @@ item:
 declaration:
   DEVICE IDENT IN IDENT
     { ([{ name = $2; location = $4 }], []) }
-
-| SENSOR IDENT IN IDENT
-    { ([], [{ name = $2; location = $4 }]) }
+| SENSOR IDENT IN IDENT COLON IDENT
+    { ([], [{ name = $2; location = $4; sensor_type = parse_sensor_type $6 }]) }
 
 
 

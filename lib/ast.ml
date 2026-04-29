@@ -3,9 +3,14 @@ type device = {
   location : string;
 }
 
+type sensor_type =
+  | IntSensor
+  | BoolSensor
+
 type sensor = {
   name : string;
   location : string;
+  sensor_type : sensor_type;
 }
 
 type time = int * int

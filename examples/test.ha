@@ -1,7 +1,7 @@
 device Light in living_room
 device Heater in bedroom
-sensor Temp in bedroom
-sensor Motion in living_room
+sensor Temp in bedroom : int
+sensor Motion in living_room : bool
 
 rule morning_heat:
 if Temp < 20 and time between 06:00..09:00

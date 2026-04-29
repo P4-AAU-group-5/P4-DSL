@@ -1,5 +1,5 @@
 device Light in living_room
-sensor Temp in bedroom
+sensor Temp in bedroom : int
 
 rule test:
 if Temp < 10
