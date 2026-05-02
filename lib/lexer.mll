@@ -49,8 +49,12 @@ let time = digit digit ':' digit digit
 let whitespace = [' ' '\t' '\r']+
 
 rule read = parse
-  | "\r\n"             { NEWLINE }
-  | '\n'               { NEWLINE }
+  | "\r\n" 
+    { Lexing.new_line lexbuf; NEWLINE }
+
+  | '\n'   
+    { Lexing.new_line lexbuf; NEWLINE }
+    
   | whitespace         { read lexbuf }
 
   | "device"           { DEVICE }

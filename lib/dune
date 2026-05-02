@@ -1,6 +1,7 @@
 (library
  (name my_project)
- (modules ast parser lexer semantic))
+ (modules ast parser lexer semantic interpreter)
+ (libraries menhirLib))
 
 (ocamllex lexer)
 

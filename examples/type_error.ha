@@ -1,6 +1,7 @@
 device Light in living_room
-sensor Temp in bedroom : int
+
+sensor Motion in living_room:bool
 
 rule test:
-if Temp < 10
+if Motion < 5
 then Light.on

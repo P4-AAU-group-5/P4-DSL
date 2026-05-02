@@ -1,32 +1,12 @@
 open My_project
-open Ast
+open Interpreter
 
 let parse_file filename =
   let chan = open_in filename in
   let lexbuf = Lexing.from_channel chan in
-  try
-    let prog = Parser.program Lexer.read lexbuf in
-    close_in chan;
-    prog
-  with
-  | Parser.Error ->
-      close_in chan;
-      let pos = lexbuf.lex_curr_p in
-      Printf.printf "Parse error at line %d\n" pos.pos_lnum;
-      exit 1
-
-let print_program (prog : Ast.program) =
-  List.iter (fun (d : Ast.device) ->
-    Printf.printf "device %s in %s\n" d.name d.location
-  ) prog.devices;
-
-  List.iter (fun (s : Ast.sensor) ->
-    Printf.printf "sensor %s in %s\n" s.name s.location
-  ) prog.sensors;
-
-  List.iter (fun (r : Ast.rule) ->
-    Printf.printf "rule %s\n" r.name
-  ) prog.rules
+  let prog = Parser.program Lexer.read lexbuf in
+  close_in chan;
+  prog
 
 let () =
   if Array.length Sys.argv < 2 then (
@@ -34,8 +14,33 @@ let () =
     exit 1
   );
 
-  let program = parse_file Sys.argv.(1) in
+  let filename = Sys.argv.(1) in
+  let program = parse_file filename in
 
+  (* Semantic checks *)
   Semantic.check_program program;
 
-  print_program program
+  (* Initialize runtime *)
+  let runtime = init_runtime program in
+
+  (* Example: manually set sensor values for testing *)
+  set_int_sensor runtime "Temp" 18;
+  set_bool_sensor runtime "Motion" true;
+
+  (* Simulate 2 days *)
+  simulate_minutes runtime program (2 * 24 * 60);
+
+  (* Print final time *)
+  let (h, m) = get_time runtime in
+  Printf.printf "\nFinal Day: %d\n" (get_day runtime);
+  Printf.printf "Final Time: %02d:%02d\n" h m;
+
+  (* Print event log *)
+  Printf.printf "\n=== EVENT LOG ===\n";
+
+  List.iter
+    (fun (e : event) ->
+       let (h, m) = e.time in
+       Printf.printf "Day %d %02d:%02d  %s\n"
+         e.day h m e.message)
+    (get_log runtime)

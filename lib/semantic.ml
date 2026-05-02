@@ -9,16 +9,6 @@ type scope = {
 
 type env = scope list
 
-
-let check_sensor_exists (name : string) (sensors : sensor list) =
-  List.exists (fun (s : sensor) -> s.name = name) sensors
-
-let find_sensor (name : string) (sensors : sensor list) =
-  List.find_opt (fun (s : sensor) -> s.name = name) sensors
-
-let check_device_exists (name : string) (devices : device list) =
-  List.exists (fun (d : device) -> d.name = name) devices
-
 (* ---- Scope / symbol-table style ---- *)
 
 let add_unique kind name value map =
@@ -59,11 +49,6 @@ let rec lookup_device_def (env : env) (name : string) : device option =
         Some (StringMap.find name scope.devices)
       else
         lookup_device_def rest name
-
-let lookup_sensor (env : env) (name : string) : bool =
-  match lookup_sensor_def env name with
-  | Some _ -> true
-  | None -> false
 
 let lookup_device (env : env) (name : string) : bool =
   match lookup_device_def env name with
