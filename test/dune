@@ -1,2 +1,7 @@
 (test
- (name test_my_project))
+ (name test_interpreter)
+ (libraries my_project alcotest))
+
+(test
+ (name test_parser_semantic)
+ (libraries my_project alcotest))

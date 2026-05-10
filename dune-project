@@ -21,7 +21,10 @@
  (name my_project)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml dune)
+ (depends
+  ocaml
+  dune
+  alcotest)
  (tags
   (topics "to describe" your project))
- (allow_empty))   ;; 👈 ADD THIS LINE
+ (allow_empty))
