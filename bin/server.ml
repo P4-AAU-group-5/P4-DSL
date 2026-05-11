@@ -90,9 +90,14 @@ let () =
     else failwith "Usage: server.exe <program-file>"
   in
   let program = program_of_file program_file in
+
+  (* Semantic checks *)
+  Semantic.check_program program;
+
   let runtime = ref (Interpreter.init_runtime program) in
 
   Dream.run
     (Dream.logger
        (Dream.router
           [ Dream.post "/execute" (fun req -> handler !runtime program req) ]))
+ 
