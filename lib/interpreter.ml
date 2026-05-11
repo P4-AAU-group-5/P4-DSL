@@ -79,6 +79,18 @@ let set_bool_sensor rt name value =
   | RuntimeBool (_, v) -> v := value
   | _ -> failwith ("Not a bool sensor: " ^ name)
 
+let set_time rt (h, m) = rt.time <- (h, m)
+
+let set_day rt day = rt.day <- day
+
+let set_device_state rt name value =
+  let d = find_device rt name in
+  d.state <- value
+
+let runtime_device_name d = d.name
+
+let runtime_device_state d = d.state
+
 (* ================= Condition Evaluation ================= *)
 
 let compare a op b =
