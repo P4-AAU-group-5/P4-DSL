@@ -54,12 +54,8 @@ let devices_to_json (devices : Interpreter.runtime_device list) =
        devices)
 
 let runtime_to_json rt =
-  let (h, m) = Interpreter.get_time rt in
-  let day = Interpreter.get_day rt in
   `Assoc
-    [ ("devices", devices_to_json (Interpreter.get_devices rt))
-    ; ("time", `Assoc [ ("hour", `Int h); ("minute", `Int m); ("day", `Int day) ])
-    ]
+    [ ("devices", devices_to_json (Interpreter.get_devices rt)) ]
 
 let execute_request runtime program body =
   let json = Yojson.Basic.from_string body in
